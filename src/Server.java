@@ -124,7 +124,7 @@ public class Server {
             }
         }
 
-        else {
+        else if (!toAll) {
             sendData = message.getBytes();
             sendingPacket =
                     new DatagramPacket(sendData, sendData.length, receivingPacket.getAddress(), clientPort);
