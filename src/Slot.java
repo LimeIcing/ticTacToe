@@ -1,5 +1,5 @@
 public enum Slot {
-    EMPTY (" "),
+    EMPTY ("-"),
     X ("X"),
     O ("O");
 

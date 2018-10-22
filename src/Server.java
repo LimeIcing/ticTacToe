@@ -61,7 +61,7 @@ public class Server {
             }
 
             else if (message.startsWith("PICK ")) {
-                printBoard();
+                message = "DATA " + boardToString();
             }
 
             else if (message.startsWith("DATA ")) {
@@ -154,13 +154,15 @@ public class Server {
         }
     }
 
-    private static void printBoard() {
+    private static String boardToString() {
+        String boardMsg = "";
         for (int i = 0; i < 3; i++) {
-            System.out.print('|');
+            boardMsg = boardMsg.concat("|");
             for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j].getValue());
+                boardMsg = boardMsg.concat(board[i][j].getValue());
             }
-            System.out.println('|');
+            boardMsg = boardMsg.concat("|\n");
         }
+        return boardMsg;
     }
 }
