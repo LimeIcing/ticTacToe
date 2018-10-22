@@ -36,7 +36,7 @@ public class ClientReceiver implements Runnable {
                     if (userlistLength > 0) {
                         if (userlistLength < message.length()) {
                             System.out.println(Client.colourise("A user joined the server!", "green"));
-                        } else {
+                        } else if (userlistLength > message.length()) {
                             System.out.println(Client.colourise("A user left the server!", "yellow"));
                         }
                     }

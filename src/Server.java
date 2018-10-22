@@ -9,20 +9,13 @@ public class Server {
             {Slot.EMPTY, Slot.EMPTY, Slot.EMPTY}};
     private static DatagramPacket receivingPacket;
     private static String message, username = "";
+    private static boolean isMP = false;
 
     public static void main(String[] args) throws Exception {
         DatagramSocket receivingSocket = new DatagramSocket(6950);
         byte[] receiveData = new byte[1024];
         //Thread Timeout = new Thread(new TimeoutRemover());
         //Timeout.start();
-
-        for (int i = 0; i < 3; i++) {
-            System.out.print('|');
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j].getValue());
-            }
-            System.out.println('|');
-        }
 
         System.out.println("Server ready");
         while (true) {
@@ -60,15 +53,15 @@ public class Server {
                     message = "J_OK";
                     sendMessage(false);
                     listUsers();
+
+                    if (users[0] != null && users[1] != null) {
+                        isMP = true;
+                    }
                 }
             }
 
             else if (message.startsWith("PICK ")) {
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-
-                    }
-                }
+                printBoard();
             }
 
             else if (message.startsWith("DATA ")) {
@@ -116,7 +109,7 @@ public class Server {
         int clientPort = 6951;
         byte[] sendData;
 
-        if (toAll) {
+        if (toAll && isMP) {
             for (User user : users) {
                 if (user.getIP().equals(receivingPacket.getAddress())) {
                     username = user.getUsername();
@@ -158,6 +151,16 @@ public class Server {
                 user.setCalendar();
                 user.setTimedOut(false);
             }
+        }
+    }
+
+    private static void printBoard() {
+        for (int i = 0; i < 3; i++) {
+            System.out.print('|');
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j].getValue());
+            }
+            System.out.println('|');
         }
     }
 }
