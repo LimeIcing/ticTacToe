@@ -1,18 +1,28 @@
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Server {
-    public static User[] users = new User[2];
+    private static User[] users = new User[2];
+    private static Slot[][] board = {
+            {Slot.EMPTY, Slot.EMPTY, Slot.EMPTY},
+            {Slot.EMPTY, Slot.EMPTY, Slot.EMPTY},
+            {Slot.EMPTY, Slot.EMPTY, Slot.EMPTY}};
     private static DatagramPacket receivingPacket;
     private static String message, username = "";
 
     public static void main(String[] args) throws Exception {
         DatagramSocket receivingSocket = new DatagramSocket(6950);
         byte[] receiveData = new byte[1024];
-        Thread Timeout = new Thread(new TimeoutRemover());
-        Timeout.start();
+        //Thread Timeout = new Thread(new TimeoutRemover());
+        //Timeout.start();
+
+        for (int i = 0; i < 3; i++) {
+            System.out.print('|');
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j].getValue());
+            }
+            System.out.println('|');
+        }
 
         System.out.println("Server ready");
         while (true) {
@@ -50,6 +60,14 @@ public class Server {
                     message = "J_OK";
                     sendMessage(false);
                     listUsers();
+                }
+            }
+
+            else if (message.startsWith("PICK ")) {
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+
+                    }
                 }
             }
 

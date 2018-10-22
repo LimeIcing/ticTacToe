@@ -33,8 +33,8 @@ public class Client {
 
         Thread receiverThread = new Thread(new ClientReceiver(receivingSocket));
         Thread senderThread = new Thread(new ClientSender(sendingSocket, serverIP, serverPort, username));
-        Thread heartbeat = new Thread(new Heartbeat(sendingSocket, serverIP, serverPort));
-        heartbeat.start();
+        //Thread heartbeat = new Thread(new Heartbeat(sendingSocket, serverIP, serverPort));
+        //heartbeat.start();
         receiverThread.start();
         senderThread.start();
     }
